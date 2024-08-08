@@ -400,9 +400,9 @@ class ChatNVIDIA(BaseChatModel):
                 # it's a Chesterton's fence I'm unwilling to touch
                 messages.append(dict(role="user", content=msg))
             elif isinstance(msg, dict):
-                if msg.get("content", None) is None:
-                    # content=None is valid for assistant messages (tool calling)
-                    if not msg.get("role") == "assistant":
+                if not msg.get("role") == "assistant":
+                    if msg.get("content", None) is None:
+                        # content=None is valid for assistant messages (tool calling)
                         raise ValueError(f"Message {msg} has no content.")
                 messages.append(msg)
             else:
